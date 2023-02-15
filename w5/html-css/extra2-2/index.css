@@ -3,8 +3,8 @@
   grid-gap: 0.25rem;
   max-width: 1250px;
   grid-template:
-    "a a a" 50px "b c c" 50px "b c c" 50px "b c c" 50px "b c c" 50px "b c c" 50px "b c c" 50px "b c c" 50px "d d e" 50px /
-    1fr 0.5fr 1.6fr;
+    "a a d" 50px "a a d" 50px "a a d" 50px "a a d" 50px "b c d" 50px "b c d" 50px "b c d" 50px "b c d" 50px "e e e" 50px /
+    0.5fr 0.5fr 1fr;
   margin: 0 auto;
 }
 
