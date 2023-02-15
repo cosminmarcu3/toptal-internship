@@ -1,0 +1,11 @@
+.task12-div {
+  width: 100px;
+  height: 100px;
+  background: red;
+  transition: 2s width;
+  transition-timing-function: ease-in-out;
+}
+
+.task12-div:hover {
+  width: 300px;
+}
