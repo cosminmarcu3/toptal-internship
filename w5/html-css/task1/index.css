@@ -1,0 +1,83 @@
+input::placeholder,
+body {
+  font-family: "Sofia", sans-serif;
+}
+
+/*
+  Breakpoints:
+
+  screen width <= 351px - the term of agreement is wrapped and the text is centered for a smoother visualization
+  screen width >= 550px - the form's width is 100% for devices with a smaller width and the width is limited for larger devices so
+  the inputs wouldn't be too long
+  screen width >= 450px - the name inputs can be placed on the same line as we have the necessary space and we are not expecting
+  a long string to be input in them, they are wrapped for smaller widths so the user wouldn't scoll to see the whole input
+*/
+
+@media only screen and (max-width: 352px) {
+  .form__checkbox {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media only screen and (min-width: 550px) {
+  .form {
+    width: 500px !important;
+  }
+}
+
+@media only screen and (min-width: 450px) {
+  .form__name {
+    justify-content: space-between;
+    flex-direction: row !important;
+  }
+
+  .form__name input {
+    width: 48%;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  border-radius: 0.35rem;
+  padding: 1rem;
+  margin: 0 auto;
+  width: 90%;
+}
+
+.form__input {
+  padding: 0.75rem;
+  outline: none;
+  transition: 0.3s box-shadow;
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+  background-color: transparent;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form__input:focus {
+  box-shadow: 0 0 0.5rem 0.1rem black;
+}
+
+.form__checkbox {
+  margin-bottom: 1rem;
+  cursor: pointer;
+  user-select: none;
+  font-size: 120%;
+}
+
+.form__header {
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
+
+.form__name {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
