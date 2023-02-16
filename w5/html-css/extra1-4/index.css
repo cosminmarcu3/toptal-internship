@@ -1,0 +1,79 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+div#main {
+  position: relative;
+  height: 200px;
+  width: 200px;
+  margin: auto;
+}
+
+div#main .content {
+  position: absolute;
+  text-align: center;
+  width: 200px;
+  top: 50%;
+  transform: translate(0, -50%);
+  font-size: 24pt;
+}
+
+div#main .topleft {
+  display: inline-block;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 0px;
+  left: 0px;
+  background: red;
+}
+
+div#main .topright {
+  display: inline-block;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 0px;
+  left: 100px;
+  background: yellow;
+}
+
+div#main .bottomleft {
+  display: inline-block;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  left: 0px;
+  top: 100px;
+  background: blue;
+}
+
+div#main .bottomright {
+  display: inline-block;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  left: 100px;
+  top: 100px;
+  background: green;
+}
+
+div#main:hover .topleft {
+  transform: translate(-100%) rotate(90deg);
+}
+div#main:hover .topright {
+  transform: translate(100%) rotate(-90deg);
+}
+div#main:hover .bottomleft {
+  transform: translate(-100%) rotate(-90deg);
+}
+
+div#main:hover .bottomright {
+  transform: translate(100%) rotate(90deg);
+}
+
+div#main div:not(.content) {
+  transition: 1s transform;
+}

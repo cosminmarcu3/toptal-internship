@@ -1,0 +1,30 @@
+.anim:active .ball-one {
+  left: 150px;
+  transition: left 0.5s ease-in;
+}
+
+.anim:active .ball-two {
+  margin-left: 100px;
+  transition: 0.5s ease-in margin-left;
+  transition-delay: 0.4s;
+}
+
+.ball-one {
+  background: #ff97c0;
+  border-radius: 50%;
+  position: absolute;
+  top: 50px;
+  left: 00px;
+  width: 200px;
+  height: 200px;
+}
+
+.ball-two {
+  background: #0097c0;
+  border-radius: 50%;
+  position: absolute;
+  top: 150px;
+  left: 300px;
+  width: 100px;
+  height: 100px;
+}
