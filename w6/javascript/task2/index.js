@@ -31,7 +31,7 @@ const saveRanking = ({ preventDefault }) => {
 };
 
 const transitionateToNextRound = () => {
-  if (round === 2) {
+  if (round === 10) {
     form_ranking.innerText = score;
 
     switchContainersVisibility(false);
