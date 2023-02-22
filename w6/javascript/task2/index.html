@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task 2</title>
+    <link rel="stylesheet" href="index.css" />
+    <script type="module" src="index.js" defer></script>
+  </head>
+  <body>
+    <template id="answer">
+      <li>
+        <button class="answer_button"></button>
+      </li>
+    </template>
+
+    <div>
+      <form class="form invisible">
+        <div>
+          Your score:
+          <span class="form_ranking"></span>
+        </div>
+        <label>
+          Your name:
+          <input class="form_name" type="text" />
+        </label>
+        <button>Save</button>
+      </form>
+
+      <div class="main">
+        <div id="picked_country"></div>
+        <ul id="list"></ul>
+      </div>
+    </div>
+  </body>
+</html>
