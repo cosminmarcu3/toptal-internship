@@ -29,15 +29,9 @@ const onWindowLoaded = () => {
         .querySelector("#countdown_template")
         .cloneNode(true);
 
-      const countdown = new Countdown(template);
+      const countdown = new Countdown(template, splitInput);
 
       countdown.start();
-
-      ["hh", "mm", "ss"].forEach(
-        (input, index) =>
-          (template.content.querySelector(`.${input}`).innerText =
-            splitInput[index])
-      );
 
       list.appendChild(template.content);
     }
@@ -51,53 +45,47 @@ window.addEventListener("load", onWindowLoaded);
 
 class Countdown {
   interval;
-  constructor(template) {
-    this.element = template.content.children[0];
+  time;
+
+  constructor(template, time) {
+    const element = template.content.children[0];
+
+    this.time = time[0] * 3600 + time[1] * 60 + parseInt(time[2]);
+
+    this.cancel = element.querySelector(".cancel");
+    this.secondsElement = element.querySelector(".ss");
+    this.minutesElement = element.querySelector(".mm");
+    this.hoursElement = element.querySelector(".hh");
+
+    this.updateTimeElements();
+  }
+
+  updateTimeElements() {
+    const minutes = this.time % 3600;
+
+    this.hoursElement.innerText = parseInt(this.time / 3600)
+      .toString()
+      .padStart(2, "0");
+    this.minutesElement.innerText = parseInt(minutes / 60)
+      .toString()
+      .padStart(2, "0");
+    this.secondsElement.innerText = parseInt(minutes % 60)
+      .toString()
+      .padStart(2, "0");
   }
 
   start() {
-    const secondsElement = this.element.querySelector(".ss");
-    const minutesElement = this.element.querySelector(".mm");
-    const hoursElement = this.element.querySelector(".hh");
-
-    const elapseTime = () => {
-      const secondsAreElapsed = secondsElement.innerText <= 0;
-      const minutesAreElapsed = minutesElement.innerText <= 0;
-
-      if (
-        secondsAreElapsed &&
-        minutesAreElapsed &&
-        hoursElement.innerText <= 0
-      ) {
+    this.interval = setInterval(() => {
+      if (this.time <= 0) {
         clearInterval(this.interval);
         return;
       }
 
-      if (secondsAreElapsed) {
-        if (minutesAreElapsed) {
-          hoursElement.innerText = (hoursElement.innerText - 1).padStart(
-            2,
-            "0"
-          );
-          minutesElement.innerText = 59;
-        } else {
-          minutesElement.innerText = (minutesElement.innerText - 1)
-            .toString()
-            .padStart(2, "0");
-        }
+      this.time--;
 
-        secondsElement.innerText = 59;
-      } else {
-        secondsElement.innerText = (parseInt(secondsElement.innerText) - 1)
-          .toString()
-          .padStart(2, "0");
-      }
-    };
+      this.updateTimeElements();
+    }, 1000);
 
-    this.interval = setInterval(elapseTime, 1000);
-
-    this.element
-      .querySelector(".cancel")
-      .setAttribute("data-interval", this.interval);
+    this.cancel.setAttribute("data-interval", this.interval);
   }
 }
