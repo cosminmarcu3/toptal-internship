@@ -18,8 +18,8 @@ const switchContainersVisibility = (showMain) => {
   main.classList[showMain ? "remove" : "add"]("invisible");
 };
 
-const saveRanking = ({ preventDefault }) => {
-  preventDefault();
+const saveRanking = (e) => {
+  e.preventDefault();
 
   localStorage.setItem(form_input.value, score);
 
@@ -50,7 +50,7 @@ function startNewRound() {
 
   const pickedCity = extractRandomItem(shallowCities);
   const pickedCapitals = [
-    pickedCity.country,
+    pickedCity.city,
     ...Array.from({ length: 3 }, () => extractRandomItem(shallowCities).city),
   ];
 
