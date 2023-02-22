@@ -1,47 +1,53 @@
 "use strict";
 
-window.addEventListener("load", () => {
-  document
-    .querySelector("[data-form='container']")
-    .addEventListener("submit", (e) => {
-      e.preventDefault();
+const onCountdownCancel = (e) => {
+  if (e.target.classList.contains("cancel")) {
+    clearInterval(e.target.dataset.interval);
+    e.target.parentElement.remove();
+  }
+};
 
-      const splitInput = document
-        .querySelector("[data-form='input']")
-        .value.split(":");
+const onWindowLoaded = () => {
+  const formInput = document.querySelector(".form_input");
+  const formError = document.querySelector(".form_error");
+  const list = document.querySelector(".list");
 
-      let formErrorStyle = document.querySelector("[data-form='error']").style;
+  const onFormSubmit = (e) => {
+    e.preventDefault();
 
-      if (
-        splitInput.length !== 3 ||
-        !splitInput.some((input) => /^\d{1,2}$/.test(input))
-      ) {
-        formErrorStyle.display = "block";
-      } else {
-        formErrorStyle.display = "none";
-        const template = document
-          .querySelector("[data-countdown='container']")
-          .cloneNode(true);
+    const splitInput = formInput.value.split(":");
 
-        const countdown = new Countdown(template);
+    if (
+      splitInput.length !== 3 ||
+      splitInput.some((input) => input < 0 || input > 59)
+    ) {
+      formError.classList.add("form_error_visible");
+    } else {
+      formError.classList.remove("form_error_visible");
 
-        countdown.start();
+      const template = document
+        .querySelector("#countdown_template")
+        .cloneNode(true);
 
-        ["hh", "mm", "ss"].forEach((input, index) => {
-          template.content.querySelector(
-            `[data-countdown='${input}']`
-          ).innerText = splitInput[index];
-          template.content
-            .querySelector("[data-countdown='cancel']")
-            .addEventListener("click", () => countdown.cancel());
-        });
+      const countdown = new Countdown(template);
 
-        document
-          .querySelector("[data-countdown='list']")
-          .appendChild(template.content);
-      }
-    });
-});
+      countdown.start();
+
+      ["hh", "mm", "ss"].forEach(
+        (input, index) =>
+          (template.content.querySelector(`.${input}`).innerText =
+            splitInput[index])
+      );
+
+      list.appendChild(template.content);
+    }
+  };
+
+  document.querySelector(".form").addEventListener("submit", onFormSubmit);
+  list.addEventListener("click", onCountdownCancel);
+};
+
+window.addEventListener("load", onWindowLoaded);
 
 class Countdown {
   interval;
@@ -50,43 +56,48 @@ class Countdown {
   }
 
   start() {
-    const startingDate = new Date();
-    this.interval = setInterval(() => {
-      const secondsElement = this.element.querySelector(
-        "[data-countdown='ss']"
-      );
-      const minutesElement = this.element.querySelector(
-        "[data-countdown='mm']"
-      );
-      const hoursElement = this.element.querySelector("[data-countdown='hh']");
+    const secondsElement = this.element.querySelector(".ss");
+    const minutesElement = this.element.querySelector(".mm");
+    const hoursElement = this.element.querySelector(".hh");
 
-      if (parseInt(secondsElement.innerText) <= 0) {
-        if (parseInt(minutesElement.innerText) <= 0) {
-          if (parseInt(hoursElement.innerText) <= 0) {
-            clearInterval(this.interval);
-            return;
-          } else {
-            hoursElement.innerText = (parseInt(hoursElement.innerText) - 1)
-              .toString()
-              .padStart(2, "0");
-          }
+    const elapseTime = () => {
+      const secondsAreElapsed = secondsElement.innerText <= 0;
+      const minutesAreElapsed = minutesElement.innerText <= 0;
+
+      if (
+        secondsAreElapsed &&
+        minutesAreElapsed &&
+        hoursElement.innerText <= 0
+      ) {
+        clearInterval(this.interval);
+        return;
+      }
+
+      if (secondsAreElapsed) {
+        if (minutesAreElapsed) {
+          hoursElement.innerText = (hoursElement.innerText - 1).padStart(
+            2,
+            "0"
+          );
           minutesElement.innerText = 59;
         } else {
-          minutesElement.innerText = (parseInt(minutesElement.innerText) - 1)
+          minutesElement.innerText = (minutesElement.innerText - 1)
             .toString()
             .padStart(2, "0");
         }
+
         secondsElement.innerText = 59;
       } else {
         secondsElement.innerText = (parseInt(secondsElement.innerText) - 1)
           .toString()
           .padStart(2, "0");
       }
-    }, 1000);
-  }
+    };
 
-  cancel() {
-    clearInterval(this.interval);
-    this.element.remove();
+    this.interval = setInterval(elapseTime, 1000);
+
+    this.element
+      .querySelector(".cancel")
+      .setAttribute("data-interval", this.interval);
   }
 }
