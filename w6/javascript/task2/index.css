@@ -11,7 +11,7 @@ button:focus {
   box-shadow: 0 0 0.5rem 0.1rem black;
 }
 
-#picked_country {
+.picked_country {
   text-align: center;
 }
 
@@ -37,17 +37,19 @@ button:focus {
   transform: scale(1.15);
 }
 
-.form {
+.ranking {
   display: flex;
   gap: 0.5rem;
   flex-direction: column;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .invisible {
   display: none;
 }
 
-#list {
+.answers_list {
   list-style: none;
   padding: 0;
   display: flex;

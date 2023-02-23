@@ -1,11 +1,11 @@
 import cities from "./cities.json" assert { type: "json" };
 
-const list = document.getElementById("list");
-const pickedCountryElement = document.getElementById("picked_country");
 const answerTemplate = document.getElementById("answer");
-const form = document.querySelector(".form");
-const form_input = document.querySelector(".form_name");
-const form_ranking = document.querySelector(".form_ranking");
+const pickedCountryElement = document.querySelector(".picked_country");
+const list = document.querySelector(".answers_list");
+const ranking = document.querySelector(".ranking");
+const rankingName = document.querySelector(".ranking_name");
+const rankingScore = document.querySelector(".ranking_score");
 const main = document.querySelector(".main");
 let round = 1;
 let score = 0;
@@ -14,14 +14,14 @@ const extractRandomItem = (array) =>
   array.splice(Math.floor(Math.random() * array.length), 1)[0];
 
 const switchContainersVisibility = (showMain) => {
-  form.classList[showMain ? "add" : "remove"]("invisible");
+  ranking.classList[showMain ? "add" : "remove"]("invisible");
   main.classList[showMain ? "remove" : "add"]("invisible");
 };
 
 const saveRanking = (e) => {
   e.preventDefault();
 
-  localStorage.setItem(form_input.value, score);
+  localStorage.setItem(rankingName.value, score);
 
   switchContainersVisibility(true);
 
@@ -32,11 +32,11 @@ const saveRanking = (e) => {
 
 const transitionateToNextRound = () => {
   if (round === 10) {
-    form_ranking.innerText = score;
+    rankingScore.innerText = score;
 
     switchContainersVisibility(false);
 
-    form.addEventListener("submit", saveRanking);
+    ranking.addEventListener("submit", saveRanking);
   } else {
     round++;
     startNewRound();
