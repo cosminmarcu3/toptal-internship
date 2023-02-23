@@ -48,12 +48,18 @@ h3 {
   min-height: 500px;
 }
 
+.movie_genres {
+  display: flex;
+  gap: 0.5rem;
+}
+
 .movie_item:hover .movie_poster {
   animation: spin 1s;
 }
 
 .movie_poster {
   border-radius: 0.5rem;
+  max-width: 350px;
 }
 
 .movie_description {
