@@ -1,33 +1,55 @@
 import collection from "./movies.json" assert { type: "json" };
 
-const movieTemplate = document.getElementById("template");
-const movieList = [];
+const genreFactory = (genreTemplate, genre) => {
+  const currentItem = genreTemplate.content.cloneNode(true);
 
-const movieFactory = ({ title, year, genres, posterUrl }) => {
-  const currentMovie = movieTemplate.content.cloneNode(true);
+  currentItem.textContent = genre;
+
+  return currentItem;
+};
+
+const movieFactory = (
+  template,
+  genreTemplate,
+  { title, year, genres, posterUrl }
+) => {
+  const currentMovie = template.content.cloneNode(true);
   const poster = currentMovie.querySelector(".poster");
 
   currentMovie.querySelector(".title").textContent = title;
 
   currentMovie.querySelector(".year").textContent = `(${year})`;
 
-  currentMovie.querySelector(".genres").append(
-    ...genres.map((genre) => {
-      const genreItem = document.createElement("li");
-      genreItem.textContent = genre;
-      return genreItem;
-    })
+  const genresPlacehoder = new DocumentFragment();
+
+  genresPlacehoder.append(
+    ...genres.map((genre) => genreFactory(genreTemplate, genre))
   );
+
+  currentMovie.querySelector(".genres").append(genresPlacehoder);
 
   poster.src = posterUrl;
   poster.addEventListener(
     "error",
-    ({ currentTarget }) => (currentTarget.src = "./defaultposter.jpg")
+    ({ target }) => (target.src = "./defaultposter.jpg"),
+    { once: true }
   );
 
   return currentMovie.querySelector(".item");
 };
 
-collection.movies.forEach((movie) => movieList.push(movieFactory(movie)));
+const init = () => {
+  const movieTemplate = document.querySelector("#card_template");
+  const genreTemplate = document.querySelector("#genre_template");
+  const moviesPlaceholder = new DocumentFragment();
 
-document.getElementById("movies").append(...movieList);
+  moviesPlaceholder.append(
+    ...collection.movies.map((movie) =>
+      movieFactory(movieTemplate, genreTemplate, movie)
+    )
+  );
+
+  document.getElementById("movies").appendChild(moviesPlaceholder);
+};
+
+init();
