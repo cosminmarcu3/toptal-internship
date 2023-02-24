@@ -35,7 +35,7 @@ h3 {
   }
 }
 
-.movie_item {
+.item {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -48,21 +48,21 @@ h3 {
   min-height: 500px;
 }
 
-.movie_genres {
+.genres {
   display: flex;
   gap: 0.5rem;
 }
 
-.movie_item:hover .movie_poster {
+.item:hover .poster {
   animation: spin 1s;
 }
 
-.movie_poster {
+.poster {
   border-radius: 0.5rem;
   max-width: 350px;
 }
 
-.movie_description {
+.description {
   display: flex;
   align-items: center;
   gap: 0.5rem;

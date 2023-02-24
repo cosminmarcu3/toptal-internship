@@ -1,17 +1,17 @@
 import collection from "./movies.json" assert { type: "json" };
 
-const movieTemplate = document.getElementById("movie_template");
+const movieTemplate = document.getElementById("template");
 const movieList = [];
 
 const movieFactory = ({ title, year, genres, posterUrl }) => {
   const currentMovie = movieTemplate.content.cloneNode(true);
-  const poster = currentMovie.querySelector(".movie_poster");
+  const poster = currentMovie.querySelector(".poster");
 
-  currentMovie.querySelector(".movie_title").textContent = title;
+  currentMovie.querySelector(".title").textContent = title;
 
-  currentMovie.querySelector(".movie_year").textContent = `(${year})`;
+  currentMovie.querySelector(".year").textContent = `(${year})`;
 
-  currentMovie.querySelector(".movie_genres").append(
+  currentMovie.querySelector(".genres").append(
     ...genres.map((genre) => {
       const genreItem = document.createElement("li");
       genreItem.textContent = genre;
@@ -25,7 +25,7 @@ const movieFactory = ({ title, year, genres, posterUrl }) => {
     ({ currentTarget }) => (currentTarget.src = "./defaultposter.jpg")
   );
 
-  return currentMovie.querySelector(".movie_item");
+  return currentMovie.querySelector(".item");
 };
 
 collection.movies.forEach((movie) => movieList.push(movieFactory(movie)));
