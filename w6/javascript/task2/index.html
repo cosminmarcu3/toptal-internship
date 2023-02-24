@@ -5,33 +5,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Task 2</title>
-    <link rel="stylesheet" href="index.css" />
-    <script type="module" src="index.js" defer></script>
+    <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <template id="answer">
-      <li>
-        <button class="answer_button"></button>
-      </li>
-    </template>
+    <h1 class="title">Guess capital</h1>
 
-    <div>
-      <form class="ranking invisible">
-        <div>
-          Your score:
-          <span class="ranking_score"></span>
+    <div class="guess">
+      <div class="section country hide"></div>
+
+      <div class="section alternatives hide">
+        <button class="city"></button>
+        <button class="city"></button>
+        <button class="city"></button>
+        <button class="city"></button>
+      </div>
+
+      <div class="section dashboard">
+        <button class="action start">Start</button>
+        <button class="action cancel">Cancel</button>
+      </div>
+
+      <div class="section status hide">
+        <div>Score: <span class="points"></span></div>
+        <div class="rounds_container">
+          Round <span class="round"></span> of <span class="rounds"></span>
         </div>
-        <label>
-          Your name:
-          <input class="ranking_name" type="text" />
-        </label>
-        <button>Save</button>
-      </form>
+      </div>
 
-      <div class="main">
-        <div class="picked_country"></div>
-        <ul class="answers_list"></ul>
+      <div class="section save_container hide">
+        <input
+          class="player"
+          type="text"
+          name="name"
+          placeholder="Enter the name"
+        />
+        <button class="action save">Save</button>
       </div>
     </div>
+
+    <script type="module" src="src/app.js"></script>
   </body>
 </html>
