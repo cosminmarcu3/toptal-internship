@@ -1,0 +1,15 @@
+{
+  "name": "task2",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "tetris"
+  },
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "tetris": "^0.1.6"
+  }
+}
