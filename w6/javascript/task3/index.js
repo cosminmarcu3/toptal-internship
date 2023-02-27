@@ -20,13 +20,11 @@ const movieFactory = (
 
   currentMovie.querySelector(".year").textContent = `(${year})`;
 
-  const genresPlacehoder = new DocumentFragment();
+  const genresList = currentMovie.querySelector(".genres");
 
-  genresPlacehoder.append(
-    ...genres.map((genre) => genreFactory(genreTemplate, genre))
-  );
-
-  currentMovie.querySelector(".genres").append(genresPlacehoder);
+  genres
+    .map((genre) => genreFactory(genreTemplate, genre))
+    .forEach((genreItem) => genresList.appendChild(genreItem));
 
   poster.src = posterUrl;
   poster.addEventListener(
@@ -41,13 +39,12 @@ const movieFactory = (
 const init = () => {
   const movieTemplate = document.querySelector("#card_template");
   const genreTemplate = document.querySelector("#genre_template");
+
   const moviesPlaceholder = new DocumentFragment();
 
-  moviesPlaceholder.append(
-    ...collection.movies.map((movie) =>
-      movieFactory(movieTemplate, genreTemplate, movie)
-    )
-  );
+  collection.movies
+    .map((movie) => movieFactory(movieTemplate, genreTemplate, movie))
+    .forEach((movieItem) => moviesPlaceholder.appendChild(movieItem));
 
   document.getElementById("movies").appendChild(moviesPlaceholder);
 };
