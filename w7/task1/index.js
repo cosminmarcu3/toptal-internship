@@ -21,7 +21,11 @@ const startTimer = (seconds) =>
   );
 
 const onTimerResolve = (message) => {
-  interface.list.innerHTML += `<div>${message}</div>`;
+  const timerItem = document.createElement("div");
+  timerItem.textContent = message;
+
+  interface.list.appendChild(timerItem);
+
   interface.count.textContent = --state.activeTimers;
 
   setButtonState();
