@@ -1,12 +1,19 @@
-const interface = {
-  button: document.querySelector("button"),
-  count: document.querySelector("#count"),
-  list: document.querySelector("#timers"),
+const interface = {};
+
+const state = {};
+
+const init = () => {
+  state.activeTimers = 0;
+
+  interface.button = document.querySelector("button");
+  interface.count = document.querySelector("#count");
+  interface.list = document.querySelector("#timers");
+
+  interface.button.addEventListener("click", insertTimer);
 };
 
-let activeTimers = 0;
-
-const setButtonState = () => (interface.button.disabled = !(activeTimers < 3));
+const setButtonState = () =>
+  (interface.button.disabled = !(state.activeTimers < 3));
 
 const startTimer = (seconds) =>
   new Promise((resolve) =>
@@ -15,7 +22,7 @@ const startTimer = (seconds) =>
 
 const onTimerResolve = (message) => {
   interface.list.innerHTML += `<div>${message}</div>`;
-  interface.count.textContent = --activeTimers;
+  interface.count.textContent = --state.activeTimers;
 
   setButtonState();
 };
@@ -24,7 +31,7 @@ const insertTimer = () => {
   if (!interface.button.disabled) {
     const generatedTime = Math.floor(Math.random() * 8 + 2);
 
-    interface.count.textContent = ++activeTimers;
+    interface.count.textContent = ++state.activeTimers;
 
     setButtonState();
 
@@ -32,4 +39,4 @@ const insertTimer = () => {
   }
 };
 
-interface.button.addEventListener("click", insertTimer);
+init();
