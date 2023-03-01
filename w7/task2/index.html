@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task 2</title>
+    <link rel="stylesheet" href="index.css" />
+    <script type="module" src="index.js" defer></script>
+  </head>
+  <body>
+    <template class="card">
+      <li class="country">
+        <img />
+        <div class="information">
+          <h3></h3>
+          <div class="languages">Languages:</div>
+        </div>
+      </li>
+    </template>
+
+    <div class="countries_container hidden">
+      <input class="search" placeholder="Search country" type="text" />
+      <ul class="countries"></ul>
+    </div>
+
+    <div class="loader"></div>
+
+    <div class="error hidden"></div>
+  </body>
+</html>
