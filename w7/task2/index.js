@@ -82,8 +82,6 @@ const renderInterface = () => {
   const { error, countriesList } = dom;
   const { loading, errorMessage, countries } = state;
 
-  console.log(statePreviousSnapshot, state);
-
   if (loading && statePreviousSnapshot.loading !== loading) {
     setInterfaceElementsVisibility(false, true, false);
     error.textContent = "";
@@ -110,9 +108,14 @@ const renderInterface = () => {
   countriesList.innerHTML = "";
 
   setInterfaceElementsVisibility(true, false, false);
+
+  const countriesPlaceholder = new DocumentFragment();
+
   countries
     .map(countryFactory)
-    .forEach((countryItem) => countriesList.appendChild(countryItem));
+    .forEach((countryItem) => countriesPlaceholder.appendChild(countryItem));
+
+  countriesList.appendChild(countriesPlaceholder);
 };
 
 const countryFactory = ({ flags, name, languages }) => {
