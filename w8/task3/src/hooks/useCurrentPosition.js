@@ -1,29 +1,47 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import { getLocationKey } from "../api";
 
-const useCurrentPosition = () =>
-  new Promise((resolve, reject) => {
-    const rejectionObj = {
-      position: undefined,
-      succsess: false,
-      error: true,
-    };
+const coordinates = {};
 
+const useCurrentPosition = () => {
+  const [loading, setLoading] = useState(true);
+
+  const [cityDetails, setCityDetails] = useState({
+    cityKey: "",
+    cityName: "",
+  });
+
+  const setCurrentCityDetails = ({ coords }) => {
+    const usedCoords = coords || coordinates;
+    getLocationKey(usedCoords).then(({ Key, EnglishName }) => {
+      coordinates.latitude = usedCoords.latitude;
+      coordinates.longitude = usedCoords.longitude;
+
+      setCityDetails({
+        cityKey: Key,
+        cityName: EnglishName,
+      });
+      setLoading(false);
+    });
+  };
+
+  useEffect(() => {
     if (!navigator.geolocation) {
-      reject(rejectionObj);
+      setLoading(false);
+      return;
     }
 
-    navigator.geolocation.getCurrentPosition(
-      ({ coords }) => {
-        const { latitude, longitude } = coords;
-
-        resolve({
-          position: { latitude, longitude },
-          succsess: true,
-          error: false,
-        });
-      },
-      () => reject(rejectionObj)
+    navigator.geolocation.getCurrentPosition(setCurrentCityDetails, () =>
+      setLoading(false)
     );
-  });
+  }, []);
+
+  return {
+    loading,
+    ...cityDetails,
+    setCityDetails,
+    setCurrentCityDetails,
+  };
+};
 
 export default useCurrentPosition;

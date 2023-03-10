@@ -12,7 +12,7 @@ const useWeatherData = (key) => {
     getWeather(key)
       .then((data) => setWeather({ ...weather, data, loading: false }))
       .catch((error) => setWeather({ ...weather, loading: false, error }));
-  }, []);
+  }, [key]);
 
   return weather;
 };

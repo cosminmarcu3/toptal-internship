@@ -1,44 +1,33 @@
-import { useEffect, useState } from "react";
-
-import { useCurrentPosition } from "./hooks";
+import useCurrentPosition from "./hooks/useCurrentPosition";
 
 import { CityForm, Weather } from "./components";
 import { Hourglass } from "./elements";
 
-import { getLocationKey } from "./api";
-
 import styles from "./App.module.css";
 
 function App() {
-  const [loading, setLoading] = useState(true);
+  const { loading, cityKey, cityName, setCurrentCityDetails, setCityDetails } =
+    useCurrentPosition();
 
-  const [cityDetails, setCityDetails] = useState({
-    cityKey: "",
-    name: "",
-  });
+  let content;
 
-  const positionPromise = useCurrentPosition();
+  if (loading) {
+    content = <Hourglass />;
+  }
 
-  useEffect(() => {
-    positionPromise
-      .then(({ position }) => getLocationKey(position))
-      .then(({ Key, EnglishName }) =>
-        setCityDetails({ cityKey: Key, name: EnglishName })
-      )
-      .finally(() => setLoading(false));
-  }, []);
-
-  return (
-    <main className={styles.main}>
-      {loading ? (
-        <Hourglass />
-      ) : cityDetails.cityKey.length ? (
-        <Weather {...{ ...cityDetails }} />
-      ) : (
+  if (cityKey.length) {
+    content = (
+      <>
         <CityForm setCityDetails={setCityDetails} />
-      )}
-    </main>
-  );
+        <div className={styles.switch_location} onClick={setCurrentCityDetails}>
+          Use current location
+        </div>
+        <Weather cityKey={cityKey} cityName={cityName} />;
+      </>
+    );
+  }
+
+  return <main className={styles.main}>{content}</main>;
 }
 
 export default App;

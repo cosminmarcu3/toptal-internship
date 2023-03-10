@@ -2,20 +2,19 @@ import { useState } from "react";
 
 import styles from "./SearchCity.module.css";
 
-import { Suggestion } from "../../elements";
-
 import { getLocationKey } from "../../api";
 
 import debounce from "lodash.debounce";
+import Suggestions from "../suggestions/Suggestions";
 
 const SearchCity = ({ setCityDataPlaceholder }) => {
   const [suggestions, setSuggestions] = useState([]);
   const [visible, setVisibility] = useState(false);
 
-  const handleInputChange = debounce((e) => {
+  const handleInputChange = (e) => {
     setVisibility(e.target.value.length);
     getLocationKey(e.target.value).then((data) => setSuggestions(data || []));
-  }, 1000);
+  };
 
   return (
     <div className={styles.search_container}>
@@ -23,29 +22,15 @@ const SearchCity = ({ setCityDataPlaceholder }) => {
         className={styles.search_input}
         placeholder="Enter your city"
         type="text"
-        onChange={handleInputChange}
+        onChange={debounce(handleInputChange, 1000)}
       />
 
       {visible ? (
-        <ul className={styles.suggestions}>
-          {suggestions.length ? (
-            suggestions.map((suggestion) => (
-              <Suggestion
-                onClick={() => {
-                  setVisibility(false);
-                  setCityDataPlaceholder({
-                    cityKey: suggestion.Key,
-                    name: suggestion.EnglishName,
-                  });
-                }}
-                key={suggestion.Key}
-                suggestion={suggestion}
-              />
-            ))
-          ) : (
-            <li>No cities found</li>
-          )}
-        </ul>
+        <Suggestions
+          suggestions={suggestions}
+          setCityDataPlaceholder={setCityDataPlaceholder}
+          setVisibility={setVisibility}
+        />
       ) : null}
     </div>
   );
