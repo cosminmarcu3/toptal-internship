@@ -1,0 +1,22 @@
+.weather_card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 0.5rem;
+  background-color: #adecb0;
+  padding: 3rem 1rem;
+  padding-top: 1rem;
+  gap: 1.5rem;
+  font-size: 120%;
+  width: 150px;
+}
+
+.weather_condition {
+  font-size: 80%;
+}
+
+.weather_temperature {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}

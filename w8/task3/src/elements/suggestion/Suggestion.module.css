@@ -1,0 +1,19 @@
+.suggestion {
+  user-select: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.suggestion:hover {
+  color: white;
+  background-color: black;
+}
+
+.suggestion_name {
+  margin: 0;
+}
+
+.suggestion_details {
+  display: flex;
+  gap: 0.25rem;
+}

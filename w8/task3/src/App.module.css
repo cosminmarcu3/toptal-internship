@@ -1,0 +1,11 @@
+.main {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.switch_location {
+  font-size: 120%;
+  cursor: pointer;
+}

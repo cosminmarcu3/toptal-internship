@@ -1,0 +1,27 @@
+.search_container {
+  position: relative;
+  box-sizing: border-box;
+}
+
+.search_input {
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  font-size: 110%;
+}
+
+.suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  box-sizing: border-box;
+  list-style: none;
+  margin: 0;
+  border: 1px solid black;
+  border-top: 0;
+  position: absolute;
+  width: 100%;
+  background-color: white;
+  padding: 0.5rem;
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}

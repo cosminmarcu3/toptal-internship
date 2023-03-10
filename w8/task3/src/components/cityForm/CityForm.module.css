@@ -1,0 +1,19 @@
+.form {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.btn {
+  background-color: #baeab5;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.3rem;
+  border: none;
+  cursor: pointer;
+  font-size: 150%;
+}
+
+.btn:disabled {
+  background-color: #9e8ebb;
+  color: #736888;
+}
