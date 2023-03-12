@@ -6,7 +6,7 @@ import { Hourglass } from "./elements";
 import styles from "./App.module.css";
 
 function App() {
-  const { loading, cityKey, cityName, setCurrentCityDetails, setCityDetails } =
+  const { loading, cityDetails, setCurrentCityDetails, setCityDetails } =
     useCurrentPosition();
 
   let content;
@@ -15,14 +15,14 @@ function App() {
     content = <Hourglass />;
   }
 
-  if (cityKey.length) {
+  if (cityDetails.cityKey.length) {
     content = (
       <>
         <CityForm setCityDetails={setCityDetails} />
         <div className={styles.switch_location} onClick={setCurrentCityDetails}>
           Use current location
         </div>
-        <Weather cityKey={cityKey} cityName={cityName} />;
+        <Weather {...cityDetails} />;
       </>
     );
   }

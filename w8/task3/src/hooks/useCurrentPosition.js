@@ -21,6 +21,7 @@ const useCurrentPosition = () => {
         cityKey: Key,
         cityName: EnglishName,
       });
+
       setLoading(false);
     });
   };
@@ -38,7 +39,7 @@ const useCurrentPosition = () => {
 
   return {
     loading,
-    ...cityDetails,
+    cityDetails,
     setCityDetails,
     setCurrentCityDetails,
   };

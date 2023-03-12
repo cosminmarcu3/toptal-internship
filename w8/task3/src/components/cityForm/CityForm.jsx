@@ -14,9 +14,12 @@ const CityForm = ({ setCityDetails }) => {
     ...placeholderInitial,
   });
 
+  const [searchInput, setSearchInput] = useState("");
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
+    setSearchInput("");
     setCityDetails(cityDataPlaceholder);
     setCityDataPlaceholder({ ...placeholderInitial });
   };
@@ -24,6 +27,8 @@ const CityForm = ({ setCityDetails }) => {
   return (
     <form onSubmit={handleFormSubmit} className={styles.form}>
       <SearchCity
+        searchInput={searchInput}
+        setSearchInput={setSearchInput}
         cityKeyPlaceholder={cityDataPlaceholder.cityKey}
         setCityDataPlaceholder={setCityDataPlaceholder}
       />
@@ -32,7 +37,7 @@ const CityForm = ({ setCityDetails }) => {
         className={styles.btn}
         disabled={!cityDataPlaceholder.cityKey.length}
       >
-        Send
+        Submit
       </button>
     </form>
   );
