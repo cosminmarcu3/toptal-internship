@@ -1,0 +1,131 @@
+.hourglass_container {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  animation: rotate 1s infinite;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hourglass_top:before {
+  content: "";
+  display: block;
+  background-color: #9b9b9b;
+  height: 8px;
+  width: 108%;
+  border-radius: 0.5rem;
+  position: absolute;
+  bottom: 100%;
+}
+
+.hourglass_top {
+  background-color: #83cbff;
+  height: 50px;
+  width: 80px;
+  border-bottom-left-radius: 3rem;
+  border-bottom-right-radius: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.hourglass_top::after {
+  content: "";
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  border-radius: 50%;
+  border: 7px solid transparent;
+  border-right: 7px solid white;
+  top: -31px;
+  right: 0;
+  transform: rotate(45deg);
+}
+
+.hourglass_top div {
+  background-color: #ffb02e;
+  width: 75%;
+  height: 60%;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  border-bottom-left-radius: 3rem;
+  border-bottom-right-radius: 3rem;
+}
+
+.hourglass_middle {
+  background-color: #83cbff;
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+
+.hourglass_middle div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 350%;
+  width: 50%;
+  background-color: #ffb02e;
+  z-index: 10;
+}
+
+.hourglass_bottom:before {
+  position: absolute;
+  top: 100%;
+  content: "";
+  display: block;
+  background-color: #9b9b9b;
+  height: 8px;
+  width: 108%;
+  border-radius: 0.5rem;
+}
+
+.hourglass_bottom {
+  background-color: #83cbff;
+  height: 50px;
+  width: 80px;
+  border-top-left-radius: 3rem;
+  border-top-right-radius: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+}
+
+.hourglass_bottom::after {
+  content: "";
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  border-radius: 50%;
+  border: 7px solid transparent;
+  border-left: 7px solid white;
+  bottom: -31px;
+  right: 0;
+  transform: rotate(135deg);
+}
+
+.hourglass_bottom div {
+  background-color: #ffb02e;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  border-top-left-radius: 3rem;
+  border-top-right-radius: 3rem;
+  height: 50%;
+  width: 65%;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
