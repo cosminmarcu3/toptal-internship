@@ -9,25 +9,27 @@ function App() {
   const { loading, cityDetails, setCurrentCityDetails, setCityDetails } =
     useCurrentPosition();
 
-  let content;
-
   if (loading) {
-    content = <Hourglass />;
-  }
-
-  if (cityDetails.cityKey.length) {
-    content = (
-      <>
-        <CityForm setCityDetails={setCityDetails} />
-        <div className={styles.switch_location} onClick={setCurrentCityDetails}>
-          Use current location
-        </div>
-        <Weather {...cityDetails} />;
-      </>
+    return (
+      <main className={styles.main}>
+        <Hourglass />;
+      </main>
     );
   }
 
-  return <main className={styles.main}>{content}</main>;
+  if (!cityDetails.cityKey.length) {
+    return <main className={styles.main}>No cities available</main>;
+  }
+
+  return (
+    <main className={styles.main}>
+      <CityForm setCityDetails={setCityDetails} />
+      <div className={styles.switch_location} onClick={setCurrentCityDetails}>
+        Use current location
+      </div>
+      <Weather {...cityDetails} />;
+    </main>
+  );
 }
 
 export default App;

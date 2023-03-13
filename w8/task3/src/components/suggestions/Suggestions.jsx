@@ -8,7 +8,7 @@ const Suggestions = ({
   setVisibility,
   setCityDataPlaceholder,
 }) => {
-  const onClick = () => {
+  const onClick = (suggestion) => {
     setVisibility(false);
     setCityDataPlaceholder({
       cityKey: suggestion.Key,
@@ -16,23 +16,25 @@ const Suggestions = ({
     });
   };
 
-  let content = <li>No cities found</li>;
-
   if (!visible) {
-    return <></>;
+    return null;
   }
 
-  if (suggestions.length) {
-    content = suggestions.map((suggestion) => (
-      <Suggestion
-        onClick={onClick}
-        key={suggestion.Key}
-        suggestion={suggestion}
-      />
-    ));
+  if (!suggestions.length) {
+    return <ul className={styles.suggestions}>No cities found</ul>;
   }
 
-  return <ul className={styles.suggestions}>{content}</ul>;
+  return (
+    <ul className={styles.suggestions}>
+      {suggestions.map((suggestion) => (
+        <Suggestion
+          onClick={() => onClick(suggestion)}
+          key={suggestion.Key}
+          suggestion={suggestion}
+        />
+      ))}
+    </ul>
+  );
 };
 
 export default Suggestions;

@@ -17,3 +17,14 @@
   background-color: #9e8ebb;
   color: #736888;
 }
+
+.search_container {
+  position: relative;
+  box-sizing: border-box;
+}
+
+.search_input {
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  font-size: 110%;
+}

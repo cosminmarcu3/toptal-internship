@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 import styles from "./CityForm.module.css";
 
-import SearchCity from "../searchCity/SearchCity";
+import Suggestions from "../suggestions/Suggestions";
+
+import { getLocationKey } from "../../api";
+
+import debounce from "lodash.debounce";
 
 const placeholderInitial = {
   cityKey: "",
@@ -14,24 +18,38 @@ const CityForm = ({ setCityDetails }) => {
     ...placeholderInitial,
   });
 
-  const [searchInput, setSearchInput] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [visible, setVisibility] = useState(false);
+
+  const handleInputChange = ({ target }) => {
+    setVisibility(target.value.length);
+
+    getLocationKey(target.value).then((data) => setSuggestions(data || []));
+  };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    setSearchInput("");
     setCityDetails(cityDataPlaceholder);
     setCityDataPlaceholder({ ...placeholderInitial });
   };
 
   return (
     <form onSubmit={handleFormSubmit} className={styles.form}>
-      <SearchCity
-        searchInput={searchInput}
-        setSearchInput={setSearchInput}
-        cityKeyPlaceholder={cityDataPlaceholder.cityKey}
-        setCityDataPlaceholder={setCityDataPlaceholder}
-      />
+      <div className={styles.search_container}>
+        <input
+          className={styles.search_input}
+          placeholder="Enter your city"
+          type="text"
+          onChange={debounce(handleInputChange, 500)}
+        />
+        <Suggestions
+          visible={visible}
+          suggestions={suggestions}
+          setCityDataPlaceholder={setCityDataPlaceholder}
+          setVisibility={setVisibility}
+        />
+      </div>
 
       <button
         className={styles.btn}

@@ -93,7 +93,7 @@
   border-top-right-radius: 3rem;
   display: flex;
   justify-content: center;
-  align-items: end;
+  align-items: flex-end;
   position: relative;
 }
 
