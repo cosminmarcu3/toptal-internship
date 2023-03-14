@@ -10,7 +10,7 @@ const Card = ({
 }: Omit<CharacterUsedData, "id">) => {
   return (
     <div className={styles.card}>
-      <img className={styles.card_image} src={image} />
+      <img className={styles.card_image} alt={name} src={image} />
       <h3 className={styles.card_name}>{name}</h3>
       <div className={styles.card_details}>
         <span>Gender: {gender}</span>
