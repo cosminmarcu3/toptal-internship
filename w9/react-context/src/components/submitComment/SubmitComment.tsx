@@ -1,22 +1,19 @@
-import { ChangeEvent, useState, useContext, FormEvent } from "react";
+import { FormEvent, useRef } from "react";
 
-import { commentsContext } from "../../contexts/commentsContext/CommentsContext";
+import { useCommentsContext } from "../../contexts/commentsContext/CommentsContext";
 
 import styles from "./SubmitComment.module.css";
 
 const SubmitComment = () => {
-  const [comment, setComment] = useState("");
+  const { commentManager } = useCommentsContext();
 
-  const { comments, addComment } = useContext(commentsContext);
-
-  const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
-    setComment(e.target.value);
+  const commentRef = useRef<HTMLTextAreaElement>(null);
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    addComment({
-      comment,
+    commentManager.addComment({
+      comment: commentRef.current?.value as string,
       author: "You",
       upvotes: [],
     });
@@ -28,8 +25,7 @@ const SubmitComment = () => {
         className={styles.input}
         rows={5}
         placeholder="Enter your comment"
-        value={comment}
-        onChange={handleInputChange}
+        ref={commentRef}
         required
       ></textarea>
       <button className={styles.submit}>Add comment</button>

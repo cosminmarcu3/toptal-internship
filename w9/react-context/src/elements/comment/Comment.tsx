@@ -4,19 +4,18 @@ import styles from "./Comment.module.css";
 
 import { CommentProps } from "./types";
 
-import { useContext } from "react";
-import { commentsContext } from "../../contexts/commentsContext/CommentsContext";
+import { useCommentsContext } from "../../contexts/commentsContext/CommentsContext";
 import { EditBtns, Header, Upvotes } from "./components";
 
 const Comment = ({ author, comment, upvotes, id }: CommentProps) => {
-  const { updateComment, removeComment } = useContext(commentsContext);
+  const { commentManager } = useCommentsContext();
   const [isEditable, setIsEditable] = useState(false);
 
   const [editableContentPrev, setEditableContentPrev] = useState("");
 
   const commentRef = useRef<HTMLParagraphElement>(null);
 
-  const handleDelete = () => removeComment(id);
+  const handleDelete = () => commentManager.removeComment(id);
   const handleEdit = () => {
     commentRef.current?.focus();
     setEditableContentPrev(commentRef.current?.textContent as string);
@@ -24,7 +23,7 @@ const Comment = ({ author, comment, upvotes, id }: CommentProps) => {
   };
 
   const handleSave = () => {
-    updateComment(id, commentRef.current?.textContent as string);
+    commentManager.updateComment(id, commentRef.current?.textContent as string);
     setIsEditable(false);
   };
   const handleCancel = () => {

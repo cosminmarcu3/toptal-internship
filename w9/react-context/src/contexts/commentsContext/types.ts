@@ -1,3 +1,5 @@
+import CommentManager from "../../utils/comments";
+
 interface Comment {
   author: string;
   comment: string;
@@ -10,17 +12,14 @@ type RemoveComment = (id: number) => void;
 type UpdateComment = (id: number, comment: string) => void;
 type UpdateUpVotes = (id: number, add: boolean) => void;
 
-interface CommentsContext {
+interface CommentsContextData {
   comments: Comment[];
-  addComment: AddComment;
-  removeComment: RemoveComment;
-  updateComment: UpdateComment;
-  updateUpVotes: UpdateUpVotes;
+  commentManager: CommentManager;
 }
 
 export type {
   Comment,
-  CommentsContext,
+  CommentsContextData,
   AddComment,
   RemoveComment,
   UpdateComment,

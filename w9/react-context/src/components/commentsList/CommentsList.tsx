@@ -4,10 +4,10 @@ import styles from "./CommentsList.module.css";
 
 import Comment from "../../elements/comment/Comment";
 
-import { commentsContext } from "../../contexts/commentsContext/CommentsContext";
+import { useCommentsContext } from "../../contexts/commentsContext/CommentsContext";
 
 const CommentsList = () => {
-  const { comments } = useContext(commentsContext);
+  const { comments } = useCommentsContext();
 
   return (
     <ul className={styles.comments_list}>

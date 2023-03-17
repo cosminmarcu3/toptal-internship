@@ -1,21 +1,24 @@
-import { useContext } from "react";
-import { commentsContext } from "../../../../contexts/commentsContext/CommentsContext";
+import { useCommentsContext } from "../../../contexts/commentsContext/CommentsContext";
 
-import styles from "../../Comment.module.css";
-import { UpvotesProps } from "./types";
+import styles from "../Comment.module.css";
+
+interface UpvotesProps {
+  count: number;
+  id: number;
+}
 
 const Upvotes = ({ count, id }: UpvotesProps) => {
-  const { comments, updateUpVotes } = useContext(commentsContext);
+  const { comments, commentManager } = useCommentsContext();
 
   const includesYou = comments
     .find((comment) => comment.id === id)
     ?.upvotes.includes("You");
 
   const handlePlusClick = () => {
-    updateUpVotes(id, true);
+    commentManager.updateUpVotes(id, true);
   };
   const handleMinusClick = () => {
-    updateUpVotes(id, false);
+    commentManager.updateUpVotes(id, false);
   };
 
   return (

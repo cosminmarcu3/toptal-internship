@@ -1,5 +1,10 @@
-import styles from "../../Comment.module.css";
-import { EditBtnsProps } from "./types";
+import styles from "../Comment.module.css";
+
+interface EditBtnsProps {
+  isEditable: boolean;
+  handleCancel: () => void;
+  handleSave: () => void;
+}
 
 const EditBtns = ({ handleSave, handleCancel, isEditable }: EditBtnsProps) => {
   if (!isEditable) {

@@ -1,5 +1,10 @@
-import styles from "../../Comment.module.css";
-import { HeaderProps } from "./types";
+import styles from "../Comment.module.css";
+
+interface HeaderProps {
+  author: string;
+  handleDelete: () => void;
+  handleEdit: () => void;
+}
 
 const Header = ({ handleEdit, handleDelete, author }: HeaderProps) => {
   const editBtnClassName = [styles.btn, styles.mr_05].join(" ");

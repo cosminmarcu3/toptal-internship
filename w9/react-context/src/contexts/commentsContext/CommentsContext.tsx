@@ -1,37 +1,45 @@
-import { createContext, useState, PropsWithChildren } from "react";
+import { createContext, useState, PropsWithChildren, useContext } from "react";
 
-import { Comment, CommentsContext } from "./types";
+import type { Comment, CommentsContextData } from "./types";
 
 import defaultComments from "./data";
-import useComment from "../../hooks/useComments";
+import Comments from "../../utils/comments";
+import CommentManager from "../../utils/comments";
 
-const commentsContext = createContext<CommentsContext>({
+const CommentsContext = createContext<CommentsContextData>({
   comments: defaultComments,
-  addComment: (comment) => {},
-  removeComment: (id) => {},
-  updateComment: (id, comment) => {},
-  updateUpVotes: (id, add) => {},
+  commentManager: new CommentManager([], () => {}),
 });
+
+CommentsContext.displayName = "My awesome context";
 
 const CommentsProvider = ({ children }: PropsWithChildren) => {
   const [comments, setComments] = useState<Comment[]>(defaultComments);
 
-  const { addComment, removeComment, updateComment, updateUpVotes } =
-    useComment(comments, setComments);
+  const commentManager = new Comments(comments, setComments);
 
   return (
-    <commentsContext.Provider
+    <CommentsContext.Provider
       value={{
         comments,
-        addComment,
-        removeComment,
-        updateComment,
-        updateUpVotes,
+        commentManager,
       }}
     >
       {children}
-    </commentsContext.Provider>
+    </CommentsContext.Provider>
   );
 };
 
-export { commentsContext, CommentsProvider };
+const useCommentsContext = () => {
+  const context = useContext(CommentsContext);
+
+  if (context === undefined) {
+    throw new Error(
+      "useCommentsContext must be used within a CommentsProvider"
+    );
+  }
+
+  return context;
+};
+
+export { useCommentsContext, CommentsProvider };
