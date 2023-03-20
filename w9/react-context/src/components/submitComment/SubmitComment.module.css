@@ -1,0 +1,30 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  max-width: 450px;
+  gap: 1rem;
+}
+
+.input {
+  resize: none;
+  transition: 0.3s;
+  border-radius: 0.35rem;
+  outline: none;
+  font-size: 120%;
+  padding: 0.5rem;
+}
+
+.input:focus {
+  box-shadow: 0 0 0 0.2rem hsla(238, 40%, 52%, 0.5);
+}
+
+.submit {
+  color: white;
+  background-color: hsl(238, 40%, 52%);
+  padding: 0.75rem;
+}
+
+.submit:focus {
+  box-shadow: 0 0 0 0.2rem hsla(238, 40%, 52%, 0.5);
+}
