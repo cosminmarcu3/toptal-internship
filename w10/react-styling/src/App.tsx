@@ -1,4 +1,4 @@
-import { Button, TextInput, Loader } from "./styled";
+import { Button, TextInput, Loader } from "./styled"
 
 function App() {
   return (
@@ -7,7 +7,7 @@ function App() {
       <TextInput invalid fullWidth={true} />
       <Loader variant="primary" />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

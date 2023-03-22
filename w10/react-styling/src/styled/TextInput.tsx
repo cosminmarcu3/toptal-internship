@@ -1,17 +1,17 @@
-import { InputHTMLAttributes } from "react";
-import styled from "styled-components";
-import { themes } from "./pallete";
+import { InputHTMLAttributes } from "react"
+import styled from "styled-components"
+import { themes } from "./pallete"
 
 type StyledTextInputProps = {
-  fullWidth?: boolean;
-  invalid?: boolean;
-};
+  fullWidth?: boolean
+  invalid?: boolean
+}
 
 type TextInputProps = InputHTMLAttributes<HTMLInputElement> &
-  StyledTextInputProps;
+  StyledTextInputProps
 
 const getFocusColor = ({ invalid }: StyledTextInputProps) =>
-  invalid ? themes.danger : themes.primary;
+  invalid ? themes.danger : themes.primary
 
 const StyledTextInput = styled.input<StyledTextInputProps>`
   padding: 0.5rem;
@@ -26,10 +26,10 @@ const StyledTextInput = styled.input<StyledTextInputProps>`
     border-color: ${getFocusColor};
     box-shadow: 0 0 0 0.2rem ${getFocusColor}50;
   }
-`;
+`
 
 const TextInput = ({ fullWidth, ...props }: TextInputProps) => (
   <StyledTextInput type="text" fullWidth={fullWidth} {...props} />
-);
+)
 
-export default TextInput;
+export default TextInput

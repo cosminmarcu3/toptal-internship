@@ -1,0 +1,100 @@
+From 09c775bc3bbdcfe8b889c00bf6d34031d0fb8c5b Mon Sep 17 00:00:00 2001
+From: pickyspoons <none@none.com>
+Date: Tue, 11 Jan 2022 20:30:37 -0500
+Subject: [PATCH] Blah
+
+---
+ README.md              | 19 ++++++-------------
+ docs/assets/js/main.js |  7 ++-----
+ docs/index.html        |  4 ++++
+ glider.css             |  1 +
+ 4 files changed, 13 insertions(+), 18 deletions(-)
+
+diff --git a/README.md b/README.md
+index 4c4515d..1679b72 100644
+--- a/README.md
++++ b/README.md
+@@ -172,26 +172,19 @@ To hide the scrollbars in Firefox, you'll want to wrap your glider with `<div cl
+ 
+ ```css
+ @-moz-document url-prefix() {
+-  .glider-track {
+-    margin-bottom: 17px;
+-  }
+-  .glider-wrap {
+-    overflow: hidden;
+-  }
++	.glider-wrap {
++		position: relative;
++		overflow: hidden;
++	}
+ }
+ ```
+ 
+ ```javascript
+ document.addEventListener('glider-loaded', hideFFScrollBars);
+ document.addEventListener('glider-refresh', hideFFScrollBars);
+-function hideFFScrollBars(e){
+-  var scrollbarHeight = 17; // Currently 17, may change with updates
++function hideFFScrollBars(event) {
+   if(/firefox/i.test(navigator.userAgent)){
+-    // We only need to appy to desktop. Firefox for mobile uses
+-    // a different rendering engine (WebKit)
+-    if (window.innerWidth > 575){
+-      e.target.parentNode.style.height = (e.target.offsetHeight - scrollbarHeight) + 'px'
+-    }
++    event.target.parentNode.style.height = event.target.clientHeight - 1 + 'px';
+   }
+ }
+ ```
+diff --git a/docs/assets/js/main.js b/docs/assets/js/main.js
+index 102b19e..88ed896 100644
+--- a/docs/assets/js/main.js
++++ b/docs/assets/js/main.js
+@@ -24,14 +24,11 @@ if(isAndroid) {
+ document.addEventListener('glider-loaded',centerArrows);
+ document.addEventListener('glider-refresh',centerArrows);
+ 
+-
+ document.addEventListener('glider-loaded', hideFFScrollBars);
+ document.addEventListener('glider-refresh', hideFFScrollBars);
+-function hideFFScrollBars(e){
++function hideFFScrollBars(event) {
+   if(/firefox/i.test(navigator.userAgent)){
+-    if (window.innerWidth > 575 && e.target.id !== 'glider-persp'){
+-      e.target.parentNode.style.height = (e.target.offsetHeight - 17) + 'px'
+-    }
++    event.target.parentNode.style.height = event.target.clientHeight - 1 + 'px';
+   }
+ }
+ 
+diff --git a/docs/index.html b/docs/index.html
+index 60c3969..ab6fe54 100644
+--- a/docs/index.html
++++ b/docs/index.html
+@@ -1124,6 +1124,10 @@
+             <span class="type">Arguments:</span> None <br>
+             Force a refresh of Glider.js navigation controls
+           </li>
++          <li>
++            <span class="setting-name">getCurrentSlide(<span class="arguments"></span>)</span><br>
++            Returns the currently active slide index
++          </li>
+           <li>
+             <span class="setting-name">destroy(<span class="arguments"></span>)</span><br>
+             Destroy Glider.js.
+diff --git a/glider.css b/glider.css
+index 4422543..b261663 100644
+--- a/glider.css
++++ b/glider.css
+@@ -10,6 +10,7 @@
+   -webkit-overflow-scrolling: touch;
+   -ms-overflow-style: none;
+   transform: translateZ(0);
++  scrollbar-width: none;
+ }
+ .glider-track {
+   transform: translateZ(0);
+-- 
+2.25.1
+

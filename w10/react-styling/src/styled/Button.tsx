@@ -1,17 +1,17 @@
-import { ButtonHTMLAttributes } from "react";
-import styled from "styled-components";
+import { ButtonHTMLAttributes } from "react"
+import styled from "styled-components"
 
-import { themes } from "./pallete";
+import { themes } from "./pallete"
 
 type StyledElementProps = {
-  variant?: keyof typeof themes;
-  fullWidth?: boolean;
-};
+  variant?: keyof typeof themes
+  fullWidth?: boolean
+}
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & StyledElementProps;
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & StyledElementProps
 
 const getCurrentThemedColor = ({ variant = "primary" }: StyledElementProps) =>
-  themes[variant];
+  themes[variant]
 
 const StyledButton = styled.button<StyledElementProps>`
   padding: 0.5rem 1.5rem;
@@ -27,10 +27,10 @@ const StyledButton = styled.button<StyledElementProps>`
   &:focus {
     box-shadow: 0 0 0 0.2rem ${getCurrentThemedColor}50;
   }
-`;
+`
 
 const Button = ({ children, ...props }: ButtonProps) => (
   <StyledButton {...props}>{children}</StyledButton>
-);
+)
 
-export default Button;
+export default Button
