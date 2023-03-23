@@ -13,8 +13,8 @@ import { useHeroes } from "../../contexts/Heroes"
 
 import type { DataItem } from "../../data"
 
-type SubmitValues = Omit<DataItem, "id">
-type HandleFormSubmit = (values: SubmitValues) => void
+type FormValues = Omit<DataItem, "id">
+type HandleFormSubmit = (values: FormValues) => void
 
 const universes = [
   { text: "DC", value: "DC" },
@@ -22,9 +22,18 @@ const universes = [
 ]
 
 const ContentLeft = () => {
-  const { addHero } = useHeroes()
+  const { heroes, addHero } = useHeroes()
 
   const handleFormSubmit: HandleFormSubmit = values => addHero(values)
+  const handleFormValidation = ({ hero }: FormValues) => {
+    if (heroes.some(h => h.hero === hero)) {
+      return {
+        hero: `${hero} is already taken`,
+      }
+    }
+
+    return {}
+  }
 
   return (
     <Section
@@ -38,7 +47,10 @@ const ContentLeft = () => {
       }
       variant="bordered"
     >
-      <Form onSubmit={handleFormSubmit}>
+      <Form
+        onSubmit={handleFormSubmit}
+        validate={handleFormValidation}
+      >
         <Input
           name="name"
           label="Original Name"
@@ -50,6 +62,11 @@ const ContentLeft = () => {
           label="Hero Name"
           placeholder="How do you want to call our hero?"
           required
+          // validate={(hero: string) => {
+          //   if (heroes.some(h => h.hero === hero)) {
+          //     return `${hero} is already taken`
+          //   }
+          // }}
         />
         <RadioGroup
           name="cape"
