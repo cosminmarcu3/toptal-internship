@@ -1,15 +1,20 @@
-import { ChangeEvent, FormEvent, useState } from "react"
-
 import {
   Form,
   Radio,
   RadioGroup,
   Select,
-  SubmitButton,
   Input,
+  SubmitButton,
 } from "@toptal/picasso-forms"
 
 import { Typography, Section, Container } from "@toptal/picasso"
+
+import { useHeroes } from "../../contexts/Heroes"
+
+import type { DataItem } from "../../data"
+
+type SubmitValues = Omit<DataItem, "id">
+type HandleFormSubmit = (values: SubmitValues) => void
 
 const universes = [
   { text: "DC", value: "DC" },
@@ -17,20 +22,9 @@ const universes = [
 ]
 
 const ContentLeft = () => {
-  const [identity, setIdentity] = useState("")
-  const [name, setName] = useState("")
-  const [cape, setCape] = useState("")
+  const { addHero } = useHeroes()
 
-  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-  }
-
-  const handleInputChange = ({
-    target,
-  }: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setIdentity(target.value)
-    setName(target.value)
-  }
+  const handleFormSubmit: HandleFormSubmit = values => addHero(values)
 
   return (
     <Section
@@ -46,31 +40,29 @@ const ContentLeft = () => {
     >
       <Form onSubmit={handleFormSubmit}>
         <Input
+          name="name"
           label="Original Name"
           placeholder="Type the secret identity of our hero"
-          value={identity}
-          onChange={handleInputChange}
+          required
         />
         <Input
+          name="hero"
           label="Hero Name"
           placeholder="How do you want to call our hero?"
-          value={name}
-          onChange={handleInputChange}
+          required
         />
         <RadioGroup
           name="cape"
-          value={cape}
-          onChange={handleInputChange}
           label="Wears a cape?"
           required
         >
           <Radio
             label="Yes"
-            value="yes"
+            value="Yes"
           />
           <Radio
             label="No"
-            value="no"
+            value="No"
           />
         </RadioGroup>
         <Select

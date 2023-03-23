@@ -1,14 +1,19 @@
-import { Section, Typography, Table } from "@toptal/picasso";
+import { Section, Typography, Table } from "@toptal/picasso"
 
-import { TableHead, TableBody, TableFooter } from "./components";
+import { TableHead, TableBody, TableFooter } from "./components"
 
-import data from "../../data";
+import { useHeroes } from "../../contexts/Heroes"
 
 const ContentRight = () => {
+  const { heroes } = useHeroes()
+
   return (
     <Section
       title={
-        <Typography variant="heading" size="xlarge">
+        <Typography
+          variant="heading"
+          size="xlarge"
+        >
           Heroes
         </Typography>
       }
@@ -16,11 +21,11 @@ const ContentRight = () => {
     >
       <Table variant="striped">
         <TableHead />
-        <TableBody data={data} />
-        <TableFooter data={data} />
+        <TableBody data={heroes} />
+        <TableFooter data={heroes} />
       </Table>
     </Section>
-  );
-};
+  )
+}
 
-export default ContentRight;
+export default ContentRight

@@ -1,9 +1,9 @@
 interface DataItem {
-  id: number;
-  name: string;
-  hero: string;
-  universe: string;
-  cape: "Yes" | "No";
+  id: number
+  name: string
+  hero: string
+  universe?: "Marvel" | "DC"
+  cape: "Yes" | "No"
 }
 
 const data: DataItem[] = [
@@ -35,7 +35,7 @@ const data: DataItem[] = [
     universe: "Marvel",
     cape: "No",
   },
-];
+]
 
-export default data;
-export type { DataItem };
+export default data
+export type { DataItem }
